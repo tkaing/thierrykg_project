@@ -1,0 +1,53 @@
+{% set background = {
+
+} %}
+
+{% if line == 1 %}
+
+    <div class="row">
+        <div class="col">
+            <span class="no">1</span>
+            <span class="task {{ random(['bg-blue-light', 'bg-green-light']) }}">hello</span>
+        </div>
+
+        <div class="col">
+            <span class="no">2</span>
+            <span class="task invisible">empty</span>
+        </div>
+
+        <div class="col">
+            <span class="no">3</span>
+            <span class="task invisible">empty</span>
+        </div>
+
+        <div class="col">
+            <span class="no invisible">empty</span>
+            <span class="task invisible">empty</span>
+        </div>
+    </div>
+
+{% else %}
+
+    <div class="row">
+        <div class="col">
+            <span class="no">4</span>
+            <span class="task invisible">empty</span>
+        </div>
+
+        <div class="col">
+            <span class="no">5</span>
+            <span class="task invisible">empty</span>
+        </div>
+
+        <div class="col">
+            <span class="no">6</span>
+            <span class="task invisible">empty</span>
+        </div>
+
+        <div class="col">
+            <span class="no">7</span>
+            <span class="task {{ random(['bg-blue-light', 'bg-green-light']) }}">world</span>
+        </div>
+    </div>
+
+{% endif %}

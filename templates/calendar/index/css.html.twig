@@ -1,0 +1,42 @@
+<style type="text/css">
+    .bubble {
+        background-color: #f1f0f0;
+        margin: 8px 15px;
+        padding: 15px 30px;
+        border-radius: 1.3em;
+    }
+    .bubble .row:not(:last-child) {
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .bubble .row .col {
+        text-align: right;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .bubble .row .col:not(:last-child) {
+        border-right: 1px solid #e0e0e0;
+    }
+    .bubble .row .col:hover {
+        background-color: #e0e0e0;
+        cursor: pointer;
+    }
+    .bubble .row .col .no {
+        font-size: 1.2em;
+    }
+    .bubble .row .col .task {
+        font-size: 0.8em;
+        display: block;
+        text-align: left;
+        white-space: nowrap;
+        padding: 0 8px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-transform: capitalize;
+    }
+    .bg-blue-light {
+        background-color: #ABD8E3;
+    }
+    .bg-green-light {
+        background-color: #B7DEB9;
+    }
+</style>

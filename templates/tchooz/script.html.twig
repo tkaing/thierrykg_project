@@ -1,0 +1,47 @@
+<script type="text/javascript">
+
+	const Tchooz = {
+	    tirage: {
+            create: (name, email) => {
+                return $.ajax({
+                    url: '{{ path('tchooz-tirage-store') }}',
+                    type: 'POST',
+                    data: {
+                        tirage: JSON.stringify({
+                            name: name, email: email
+                        })
+                    }
+                });
+            }
+        },
+	    participant: {
+	        put: (URL, name, code) => {
+                return $.ajax({
+                    url: URL,
+                    type: 'PUT',
+                    data: {
+                        participant: JSON.stringify({
+                            name: name, code: code
+                        })
+                    }
+                });
+            },
+            getUniqueId: () => {
+                return $.ajax({
+                    url: '{{ path('tchooz-participant-get-unique-id') }}',
+                    type: 'GET'
+                });
+            },
+            getWishlist: (tirageUniqueId, participantUniqueId) => {
+	            const URL = "{{ path('tchooz-participant-get-wishlist', {'uniqueId': ':tirage', 'participantUniqueId': ':participant' }) }}"
+                    .replace(':tirage', tirageUniqueId)
+                    .replace(':participant', participantUniqueId);
+                return $.ajax({
+                    url: URL,
+                    type: 'GET'
+                });
+            }
+        },
+	};
+
+</script>

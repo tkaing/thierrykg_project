@@ -1,0 +1,44 @@
+<script type="text/javascript">
+
+	$(() => {
+		View.onInit();
+	});
+
+	$('body')
+        .on('submit', 'form', function (event) {
+            event.preventDefault();
+            View.onSubmit($(this));
+        })
+    ;
+
+	const View = {
+		onInit: () => {
+		},
+        onSubmit: ($form) => {
+            Controller.tirage.submit($form);
+        }
+	};
+
+	const Controller = {
+		tirage: {
+            submit: ($form) => {
+                const
+                    $input_name = $form.find('.input-name'),
+                    $input_email = $form.find('.input-email'),
+                    name = $input_name.val(),
+                    email = $input_email.val();
+
+                const Callback = Tchooz.tirage.create(name, email);
+
+                Callback
+                    .done(function(s) {
+                        window.location.href = s.url;
+                    })
+                    .fail(function() {
+                        console.log("error");
+                    });
+            },
+        }
+	};
+
+</script>

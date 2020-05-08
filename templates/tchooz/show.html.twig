@@ -1,0 +1,62 @@
+{% extends 'tchooz/base.html.twig' %}
+
+{% block stylesheets %}
+
+    {% include 'tchooz/show/css.html.twig' %}
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+
+        <div class="col"></div>
+
+        <div class="col-8 text-center">
+
+            <h1>
+                <span>Mon Code = </span>
+                <span class="text-participant-id"></span>
+            </h1>
+
+            {% if is_creator %}
+                <br><br><br>
+                <h3>Liste des participants</h3>
+                <br>
+
+                {% if participants is empty %}
+
+                    {% include 'tchooz/show/form.html.twig' %}
+
+                {% else %}
+
+                    {% for p in participants %}
+
+                        {% include 'tchooz/show/form.html.twig' with {'p': p } %}
+
+                    {% endfor %}
+
+                {% endif %}
+
+                <br>
+                <button type="button" class="btn btn-info">
+                    <span>Ajouter un participant</span>
+                </button>
+            {% endif %}
+
+            <br><br><br>
+            <section class="wishlist">
+                {{ is_creator ? include('tchooz/show/wishlist.html.twig') }}
+            </section>
+        </div>
+
+        <div class="col"></div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {% include 'tchooz/show/script.html.twig' %}
+
+{% endblock %}

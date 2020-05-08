@@ -1,0 +1,112 @@
+<script type="text/javascript">
+
+	$(() => {
+		View.onInit();
+	});
+
+	$('body')
+        .on('submit', '.form', function (event) {
+            event.preventDefault();
+            View.onSubmit($(this));
+        })
+        .on('submit', '.form-wishlist', function (event) {
+            event.preventDefault();
+            View.onSubmitWishlist($(this));
+        })
+    ;
+
+	const View = {
+		onInit: () => {
+            Controller.participant.initUniqueId();
+		},
+        onSubmit: ($form) => {
+            Controller.participant.submit($form);
+        },
+        onSubmitWishlist: ($form) => {
+            Controller.participant.submitWishlist($form);
+        },
+	};
+
+	const Controller = {
+	    participant: {
+	        initUniqueId: () => {
+
+                const uniqueId = localStorage.getItem('tchooz_participant');
+
+                if (uniqueId === null) {
+
+                    const Callback = Tchooz.participant.getUniqueId();
+
+                    Callback
+                        .done(function(s) {
+                            localStorage.setItem('tchooz_participant', s.participant_id);
+                            Controller.participant.showUniqueId();
+
+                            {% if not is_creator %}
+
+                            const Callback = Tchooz.participant.getWishlist("{{ tirage.unique_id }}", s.participant_id);
+
+                            Callback
+                                .done(function(s) {
+                                    $('.wishlist').html(s.wishlist);
+                                })
+                                .fail(function() {
+                                    console.log("error");
+                                });
+
+                            {% endif %}
+                        })
+                        .fail(function() {
+                            console.log("error");
+                        });
+
+                } else {
+
+                    Controller.participant.showUniqueId();
+
+                    {% if not is_creator %}
+
+                    const Callback = Tchooz.participant.getWishlist("{{ tirage.unique_id }}", uniqueId);
+
+                    Callback
+                        .done(function(s) {
+                            $('.wishlist').html(s.wishlist);
+                        })
+                        .fail(function() {
+                            console.log("error");
+                        });
+
+                    {% endif %}
+                }
+            },
+            showUniqueId: () => {
+
+                const uniqueId = localStorage.getItem('tchooz_participant');
+
+                $('.text-participant-id').html(uniqueId);
+            },
+            submit: ($form) => {
+                const
+                    URL = $form.attr('action'),
+                    $name = $form.find('.input-name'),
+                    $code = $form.find('.input-code'),
+                    name = $name.val(),
+                    code = $code.val();
+
+                const Callback = Tchooz.participant.put(URL, name, code);
+
+                Callback
+                    .done(function(s) {
+
+                    })
+                    .fail(function() {
+                        console.log("error");
+                    });
+            },
+            submitWishlist: ($form) => {
+
+            },
+        },
+	};
+
+</script>
