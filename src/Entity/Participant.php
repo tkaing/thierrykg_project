@@ -28,7 +28,7 @@ class Participant
     private $tirage;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
+     * @ORM\Column(type="string", length=10, nullable=true, unique=true)
      */
     private $uniqueId;
 
