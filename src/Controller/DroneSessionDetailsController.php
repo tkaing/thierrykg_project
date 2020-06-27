@@ -44,7 +44,7 @@ class DroneSessionDetailsController extends AbstractController
         if ($this->hasSessionError($data)) {
             return $this->json([
                 'message' => $this->getSessionMessage($data)->first()
-            ], JsonResponse::HTTP_PARTIAL_CONTENT);
+            ], JsonResponse::HTTP_CONFLICT);
         }
 
         $session = $this->fetchSession($data);
@@ -53,7 +53,7 @@ class DroneSessionDetailsController extends AbstractController
         if ($this->service->hasError($object)) {
             return $this->json([
                 'message' => $this->service->getMessage($object)
-            ], JsonResponse::HTTP_PARTIAL_CONTENT);
+            ], JsonResponse::HTTP_CONFLICT);
         }
 
         $this->doctrine->persist($object);

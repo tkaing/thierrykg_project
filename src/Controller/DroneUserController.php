@@ -41,7 +41,7 @@ class DroneUserController extends AbstractController
         if ($this->service->hasError($object)) {
             return $this->json([
                 'message' => $this->service->getMessage($object)
-            ], JsonResponse::HTTP_PARTIAL_CONTENT);
+            ], JsonResponse::HTTP_CONFLICT);
         }
 
         $this->doctrine->persist($object);
@@ -68,7 +68,7 @@ class DroneUserController extends AbstractController
         if (!$object instanceof DroneUser) {
             return $this->json([
                 'message' => "Pseudo ou mot de passe incorrect."
-            ], JsonResponse::HTTP_PARTIAL_CONTENT);
+            ], JsonResponse::HTTP_CONFLICT);
         }
 
         return $this->json($object->toArray());
