@@ -87,20 +87,6 @@ class DroneSession
         return $this;
     }
 
-    public function toArray()
-    {
-        return [
-            'id' => $this->id,
-            'createdAt' => $this->createdAt
-        ];
-    }
-
-    public static function fromArray(array $data)
-    {
-        return (new DroneSession())
-            ->setCreatedAt($data['createdAt'] ?? new \DateTime());
-    }
-
     public function getUser(): ?DroneUser
     {
         return $this->user;
@@ -111,5 +97,20 @@ class DroneSession
         $this->user = $user;
 
         return $this;
+    }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'createdAt' => $this->createdAt,
+        ];
+    }
+
+    public static function fromArray(array $data, DroneUser $user)
+    {
+        return (new DroneSession())
+            ->setCreatedAt($data['createdAt'] ?? new \DateTime())
+            ->setUser($user);
     }
 }
