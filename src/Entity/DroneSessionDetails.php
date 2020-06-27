@@ -19,13 +19,13 @@ class DroneSessionDetails
 
     /**
      * @ORM\Column(type="float")
-     * @Assert\NotBlank()
+     * @Assert\PositiveOrZero
      */
     private $speed;
 
     /**
      * @ORM\Column(type="integer")
-     * @Assert\NotBlank()
+     * @Assert\PositiveOrZero
      */
     private $collision;
 
