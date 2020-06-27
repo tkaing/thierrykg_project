@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DroneSessionDetailsRepository")
@@ -18,11 +19,13 @@ class DroneSessionDetails
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank()
      */
     private $speed;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
      */
     private $collision;
 
