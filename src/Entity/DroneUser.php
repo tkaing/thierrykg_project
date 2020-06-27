@@ -23,20 +23,20 @@ class DroneUser
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=100, unique=true)
      * @Assert\NotBlank()
      */
     private $pseudo;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=100, unique=true)
      * @Assert\Email()
      * @Assert\NotBlank()
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=50)
      * @Assert\NotBlank()
      */
     private $password;
