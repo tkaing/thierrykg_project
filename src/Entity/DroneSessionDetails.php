@@ -107,7 +107,7 @@ class DroneSessionDetails
     {
         return (new DroneSessionDetails())
             ->setSpeed($data['speed'] ?? -1)
-            ->setCollision($data['speed'] ?? -1)
+            ->setCollision($data['collision'] ?? -1)
             ->setCreatedAt($data['createdAt'] ?? new \DateTime())
             ->setSession($session);
     }
