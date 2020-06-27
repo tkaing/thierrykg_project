@@ -66,9 +66,10 @@ class DroneUserController extends AbstractController
         ]);
 
         if (!$object instanceof DroneUser) {
-            return $this->json([
-                'message' => "Pseudo ou mot de passe incorrect."
-            ], JsonResponse::HTTP_CONFLICT);
+            return $this->json(
+                "Pseudo ou mot de passe incorrect.",
+                JsonResponse::HTTP_CONFLICT
+            );
         }
 
         return $this->json($object->toArray());
