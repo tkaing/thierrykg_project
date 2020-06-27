@@ -47,6 +47,6 @@ class DroneUserController extends AbstractController
         $this->doctrine->persist($object);
         $this->doctrine->flush();
 
-        return $this->json($object);
+        return $this->json($object->toArray());
     }
 }

@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="App\Repository\DroneUserRepository")
  * @UniqueEntity(
  *     fields={"email", "pseudo"},
- *     message="This email or pseudo is already in use on app."
+ *     message="It's already in use on app."
  * )
  */
 class DroneUser
