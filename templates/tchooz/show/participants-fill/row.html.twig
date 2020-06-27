@@ -1,0 +1,26 @@
+<div class="row">
+
+    {% set value_pseudo = participant is defined ? 'value="' ~ participant.pseudo ~ '"' %}
+
+    <div class="col-4">
+        <input type="text" class="form-control input-name"
+               placeholder="Nom du participant" required {{ value_pseudo }}>
+    </div>
+
+    {% set value_unique_id = participant is defined ? 'value="' ~ participant.uniqueId ~ '"' %}
+
+    <div class="col-4">
+        <input type="text" class="form-control input-code"
+               placeholder="Code du participant" required {{ value_unique_id }}>
+    </div>
+
+    <div class="col-4">
+
+        <button type="button"
+                class="btn btn-danger button-participants-delete">
+            <span>Supprimer</span>
+        </button>
+
+    </div>
+
+</div>

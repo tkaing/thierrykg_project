@@ -6,19 +6,18 @@ use Hashids\Hashids;
 
 class EncoderService {
 
-    public function encode($integerId, $stringSalt) {
+    public function encode($integerId, $stringSalt, int $length = 10) {
 
         $dateSalt = new \DateTime();
         $dateSalt = $dateSalt->format('d-m-Y-H-i-s-u');
-        $dateAndSecretAndStringSalt = "$dateSalt-$stringSalt";
+        $dateAndStringSalt = "$dateSalt-$stringSalt";
 
-        $encoder = new Hashids($dateAndSecretAndStringSalt, 10); // pad to length 10
-        return $encoder->encode($integerId); // VolejRejNm
+        $encoder = new Hashids($dateAndStringSalt, $length, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
+        return $encoder->encode($integerId);
     }
 
     public function decode($encoded) {
         $encoder = new Hashids();
         return $encoder->decode($encoded);
     }
-
 }

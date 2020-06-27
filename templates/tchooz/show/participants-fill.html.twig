@@ -1,0 +1,50 @@
+{% if is_creator_url %}
+
+    <h3>Liste des participants</h3>
+
+    {% set form_action = path('tchooz-participant-store-all', {
+        'uniqueId': tirage.uniqueId
+    }) %}
+
+    <form action="{{ form_action }}"
+          method="post" class="form-participants">
+
+        {% if participants is empty %}
+
+            <div class="form-line form-line-core">
+                {% include 'tchooz/show/participants-fill/row.html.twig' %}
+            </div>
+
+        {% else %}
+
+            {% for participant in participants %}
+
+                <div class="form-line form-line-core">
+                    {% include 'tchooz/show/participants-fill/row.html.twig' %}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+        <div class="form-line form-line-core d-none">
+            <div class="form-line form-line-core">
+                {% include 'tchooz/show/participants-fill/row.html.twig'  %}
+            </div>
+        </div>
+
+        <div class="form-line form-line-bottom">
+            <button type="button" class="btn btn-primary button-participants-append">
+                <span>Ajouter un participant</span>
+            </button>
+        </div>
+
+        <div class="form-line form-line-bottom">
+            <button type="submit" class="btn btn-success">
+                <span>Lancer le tirage</span>
+            </button>
+        </div>
+
+    </form>
+
+{% endif %}

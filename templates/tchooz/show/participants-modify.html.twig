@@ -1,0 +1,22 @@
+{% if is_creator_url %}
+
+    <h3>Liste des participants</h3>
+
+    {% set form_action = path('tchooz-participant-patch', {
+        'uniqueId': ':uniqueId'
+    }) %}
+
+    {% for participant in participants %}
+
+        <form action="{{ form_action|replace({':uniqueId', participant.uniqueId }) }}"
+              method="post" class="form-participant">
+
+            <div class="form-line form-line-core">
+                {% include 'tchooz/show/participants-modify/row.html.twig' %}
+            </div>
+
+        </form>
+
+    {% endfor %}
+
+{% endif %}

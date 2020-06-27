@@ -12,45 +12,27 @@
 
         <div class="col"></div>
 
-        <div class="col-8 text-center">
+        <div class="col-10 text-center">
 
-            <h1>
-                <span>Mon Code = </span>
-                <span class="text-participant-id"></span>
-            </h1>
+            <section class="my-code">
+                {% include 'tchooz/show/my-code.html.twig' %}
+            </section>
 
-            {% if is_creator %}
-                <br><br><br>
-                <h3>Liste des participants</h3>
-                <br>
+            <section class="participants">
+                {% include 'tchooz/show/participants-fill.html.twig' with {
+                    'tirage': tirage, 'participants': participants, 'is_creator_url': is_creator_url
+                } %}
+            </section>
 
-                {% if participants is empty %}
-
-                    {% include 'tchooz/show/form.html.twig' %}
-
-                {% else %}
-
-                    {% for p in participants %}
-
-                        {% include 'tchooz/show/form.html.twig' with {'p': p } %}
-
-                    {% endfor %}
-
-                {% endif %}
-
-                <br>
-                <button type="button" class="btn btn-info">
-                    <span>Ajouter un participant</span>
-                </button>
-            {% endif %}
-
-            <br><br><br>
             <section class="wishlist">
-                {{ is_creator ? include('tchooz/show/wishlist.html.twig') }}
+                {#{% include 'tchooz/show/wishlist.html.twig' with {
+                    'tirage': tirage, 'participant': participant, 'is_creator_url': is_creator_url
+                } %}#}
             </section>
         </div>
 
         <div class="col"></div>
+
     </div>
 
 {% endblock %}

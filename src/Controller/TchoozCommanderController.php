@@ -2,11 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Participant;
 use App\Entity\Tirage;
+use App\Entity\Participant;
 use App\Service\EncoderService;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,7 +16,8 @@ class TchoozCommanderController extends AbstractController
     private $manager;
     private $utilsEncoder;
 
-    public function __construct(EntityManagerInterface $manager, EncoderService $utilsEncoder)
+    public function __construct(EntityManagerInterface $manager,
+                                EncoderService $utilsEncoder)
     {
         $this->manager = $manager;
         $this->utilsEncoder = $utilsEncoder;
@@ -65,23 +65,24 @@ class TchoozCommanderController extends AbstractController
     }
 
     /**
-     * @Route("/tchooz/participant/put/{uniqueId}", name="tchooz-participant-put", methods={"PUT"})
+     * @Route("/tchooz/participant/store-all/{uniqueId}", name="tchooz-participant-store-all", methods={"POST"})
      */
-    public function putParticipant(Request $request, Tirage $tirage)
+    public function storeAllParticipant(Request $request, Tirage $tirage)
     {
         if (!$request->isXmlHttpRequest())
             throw $this->createAccessDeniedException();
 
-        $data = $request->get('participant');
+        $data = $request->get('participants');
         $data = json_decode($data);
+        dump($data);die;
 
         $participant = new Participant();
         $participant->setTirage($tirage);
         $participant->setPseudo($data->name);
         $participant->setUniqueId($data->code);
 
-        $this->manager->persist($participant);
-        $this->manager->flush();
+        //$this->manager->persist($participant);
+        //$this->manager->flush();
 
         return new JsonResponse();
     }

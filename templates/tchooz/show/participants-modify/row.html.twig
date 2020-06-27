@@ -1,0 +1,19 @@
+<div class="row">
+
+    <div class="col-4">
+        <input type="text" class="form-control input-name"
+               placeholder="Nom du participant" value="{{ participant.pseudo }}" required readonly>
+    </div>
+
+    <div class="col-4">
+        <input type="text" class="form-control input-code"
+               placeholder="Code du participant" value="{{ participant.uniqueId }}" required>
+    </div>
+
+    <div class="col-4">
+        <button type="submit" class="btn btn-danger submit-participant">
+            <span>Modifier</span>
+        </button>
+    </div>
+
+</div>

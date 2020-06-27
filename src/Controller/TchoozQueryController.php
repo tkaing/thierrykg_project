@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Participant;
 use App\Entity\Tirage;
-use App\Repository\ParticipantRepository;
+use App\Entity\Participant;
 use App\Service\EncoderService;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ParticipantRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -35,7 +35,7 @@ class TchoozQueryController extends AbstractController
         if (!$request->isXmlHttpRequest())
             throw $this->createAccessDeniedException();
 
-        $encoded = $this->utilsEncoder->encode(1, 'generate-unique-id');
+        $encoded = $this->utilsEncoder->encode(1, 'generate-unique-id', 4);
 
         return new JsonResponse([
             'participant_id' => $encoded

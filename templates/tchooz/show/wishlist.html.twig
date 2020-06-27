@@ -1,12 +1,15 @@
 <h3>Bonjour {{ participant.pseudo }}, voici ta wishlist !</h3>
-<br>
-<form method="post" action="{{ path('tchooz-participant-patch-wishlist', {
-    'tirage': tirage.unique_id, 'participant': participant.unique_id
-}) }}" class="form-wishlist">
+
+{% set form_action = path('tchooz-participant-patch-wishlist', {
+    'tirage': tirage.uniqueId, 'participant': participant.uniqueId
+}) %}
+
+<form action="{{ form_action }}" method="post" class="form-wishlist">
+
     <input type="text" class="form-control input-gift-1" placeholder="Cadeau 1" required>
     <input type="text" class="form-control input-gift-2" placeholder="Cadeau 2" required>
     <input type="text" class="form-control input-gift-3" placeholder="Cadeau 3" required>
-    <br>
+
     <button type="submit" class="btn btn-primary button-submit">
         <span>Valider</span>
     </button>

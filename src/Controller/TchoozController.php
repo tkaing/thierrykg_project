@@ -14,7 +14,8 @@ class TchoozController extends AbstractController
     private $manager;
     private $utilsEncoder;
 
-    public function __construct(EntityManagerInterface $manager, EncoderService $utilsEncoder)
+    public function __construct(EntityManagerInterface $manager,
+                                EncoderService $utilsEncoder)
     {
         $this->manager = $manager;
         $this->utilsEncoder = $utilsEncoder;
@@ -40,13 +41,9 @@ class TchoozController extends AbstractController
         $participants->removeElement($creator);
 
         return $this->render('tchooz/show.html.twig', [
-            'is_creator' => $is_creator,
-            'tirage' => ['unique_id' => $tirage->getUniqueId()],
-            'participant' => [
-                'unique_id' => $creator->getUniqueId(),
-                'pseudo' => $creator->getPseudo()
-            ],
-            'participants' => $participants
+            'tirage' => $tirage,
+            'participants' => $participants,
+            'is_creator_url' => $is_creator
         ]);
     }
 }

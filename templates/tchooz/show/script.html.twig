@@ -5,13 +5,23 @@
 	});
 
 	$('body')
-        .on('submit', '.form', function (event) {
-            event.preventDefault();
-            View.onSubmit($(this));
-        })
         .on('submit', '.form-wishlist', function (event) {
             event.preventDefault();
             View.onSubmitWishlist($(this));
+        })
+        .on('submit', '.form-participant', function (event) {
+            event.preventDefault();
+            View.onSubmitParticipant($(this));
+        })
+        .on('submit', '.form-participants', function (event) {
+            event.preventDefault();
+            View.onSubmitParticipants($(this));
+        })
+        .on('click', '.button-participants-append', function () {
+            View.onAppendParticipants($('.form-line.d-none'));
+        })
+        .on('click', '.button-participants-delete', function () {
+            View.onDeleteParticipants($(this).closest('.form-line'));
         })
     ;
 
@@ -19,12 +29,21 @@
 		onInit: () => {
             Controller.participant.initUniqueId();
 		},
-        onSubmit: ($form) => {
-            Controller.participant.submit($form);
-        },
         onSubmitWishlist: ($form) => {
             Controller.participant.submitWishlist($form);
         },
+        onSubmitParticipant: ($form) => {
+            Controller.participant.submitParticipant($form);
+        },
+        onSubmitParticipants: ($form) => {
+            Controller.participant.submitParticipants($form);
+        },
+        onAppendParticipants: ($form_line_hidden) => {
+		    $form_line_hidden.before($form_line_hidden.html());
+        },
+        onDeleteParticipants: ($form_line_deleted) => {
+            $form_line_deleted.remove();
+        }
 	};
 
 	const Controller = {
@@ -42,9 +61,7 @@
                             localStorage.setItem('tchooz_participant', s.participant_id);
                             Controller.participant.showUniqueId();
 
-                            {% if not is_creator %}
-
-                            const Callback = Tchooz.participant.getWishlist("{{ tirage.unique_id }}", s.participant_id);
+                            const Callback = Tchooz.participant.getWishlist("{{ tirage.uniqueId }}", s.participant_id);
 
                             Callback
                                 .done(function(s) {
@@ -53,8 +70,6 @@
                                 .fail(function() {
                                     console.log("error");
                                 });
-
-                            {% endif %}
                         })
                         .fail(function() {
                             console.log("error");
@@ -64,9 +79,7 @@
 
                     Controller.participant.showUniqueId();
 
-                    {% if not is_creator %}
-
-                    const Callback = Tchooz.participant.getWishlist("{{ tirage.unique_id }}", uniqueId);
+                    const Callback = Tchooz.participant.getWishlist("{{ tirage.uniqueId }}", uniqueId);
 
                     Callback
                         .done(function(s) {
@@ -75,8 +88,6 @@
                         .fail(function() {
                             console.log("error");
                         });
-
-                    {% endif %}
                 }
             },
             showUniqueId: () => {
@@ -85,15 +96,14 @@
 
                 $('.text-participant-id').html(uniqueId);
             },
-            submit: ($form) => {
+            submitWishlist: ($form) => {},
+            submitParticipant: ($form) => {},
+            submitParticipants: ($form) => {
                 const
-                    URL = $form.attr('action'),
-                    $name = $form.find('.input-name'),
-                    $code = $form.find('.input-code'),
-                    name = $name.val(),
-                    code = $code.val();
+                    URL = $form.attr('action');
+                console.log(URL);
 
-                const Callback = Tchooz.participant.put(URL, name, code);
+                /*const Callback = Tchooz.participant.put(URL, name, code);
 
                 Callback
                     .done(function(s) {
@@ -101,10 +111,7 @@
                     })
                     .fail(function() {
                         console.log("error");
-                    });
-            },
-            submitWishlist: ($form) => {
-
+                    });*/
             },
         },
 	};
