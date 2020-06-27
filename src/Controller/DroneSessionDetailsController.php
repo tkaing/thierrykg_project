@@ -6,6 +6,7 @@ use App\Entity\DroneSession;
 use App\Service\DroneService;
 use App\Entity\DroneSessionDetails;
 use App\Repository\DroneSessionRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -20,13 +21,15 @@ class DroneSessionDetailsController extends AbstractController
 {
     private $finder;
     private $service;
+    private $doctrine;
     private $finderSession;
 
     public function __construct(DroneSessionDetailsRepository $finder, DroneService $service,
-                                DroneSessionRepository $finderSession)
+                                EntityManagerInterface $doctrine, DroneSessionRepository $finderSession)
     {
         $this->finder = $finder;
         $this->service = $service;
+        $this->doctrine = $doctrine;
         $this->finderSession = $finderSession;
     }
 
@@ -52,6 +55,9 @@ class DroneSessionDetailsController extends AbstractController
                 'message' => $this->service->getMessage($object)
             ], JsonResponse::HTTP_PARTIAL_CONTENT);
         }
+
+        $this->doctrine->persist($object);
+        $this->doctrine->flush();
 
         return $this->json($object);
     }

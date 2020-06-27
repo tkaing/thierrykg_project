@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\DroneUser;
 use App\Service\DroneService;
 use App\Repository\DroneUserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,11 +18,14 @@ class DroneUserController extends AbstractController
 {
     private $finder;
     private $service;
+    private $doctrine;
 
-    public function __construct(DroneUserRepository $finder, DroneService $service)
+    public function __construct(DroneUserRepository $finder, DroneService $service,
+                                EntityManagerInterface $doctrine)
     {
         $this->finder = $finder;
         $this->service = $service;
+        $this->doctrine = $doctrine;
     }
 
     /**
@@ -39,6 +43,9 @@ class DroneUserController extends AbstractController
                 'message' => $this->service->getMessage($object)
             ], JsonResponse::HTTP_PARTIAL_CONTENT);
         }
+
+        $this->doctrine->persist($object);
+        $this->doctrine->flush();
 
         return $this->json($object);
     }
