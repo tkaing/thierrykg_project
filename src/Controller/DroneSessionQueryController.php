@@ -31,4 +31,16 @@ class DroneSessionQueryController extends AbstractController
 
         return $this->json($object->toArray());
     }
+
+    /**
+     * @Route("/list/all", name="api_drone_session_query_list_all")
+     */
+    public function listAll() {
+
+        $objects = $this->finder->findAll();
+
+        return $this->json(array_map(function (DroneSession $object) {
+            return $object->toArray();
+        }, $objects));
+    }
 }

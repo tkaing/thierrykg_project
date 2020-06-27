@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\DroneUser;
 use App\Repository\DroneUserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -56,5 +57,17 @@ class DroneUserQueryController extends AbstractController
             throw $this->createNotFoundException();
 
         return $this->json($object->toArray());
+    }
+
+    /**
+     * @Route("/list/all", name="api_drone_user_query_list_all")
+     */
+    public function listAll() {
+
+        $objects = $this->finder->findAll();
+
+        return $this->json(array_map(function (DroneUser $object) {
+            return $object->toArray();
+        }, $objects));
     }
 }
