@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -40,6 +42,16 @@ class DroneUser
      * @Assert\NotBlank()
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\DroneSession", mappedBy="user")
+     */
+    private $sessions;
+
+    public function __construct()
+    {
+        $this->sessions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -98,5 +110,36 @@ class DroneUser
             ->setEmail($data['email'] ?? "")
             ->setPseudo($data['pseudo'] ?? "")
             ->setPassword($data['password'] ?? "");
+    }
+
+    /**
+     * @return Collection|DroneSession[]
+     */
+    public function getSessions(): Collection
+    {
+        return $this->sessions;
+    }
+
+    public function addSessions(DroneSession $sessions): self
+    {
+        if (!$this->sessions->contains($sessiosn)) {
+            $this->sessions[] = $sessiosn;
+            $sessiosn->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSessions(DroneSession $sessions): self
+    {
+        if ($this->sessions->contains($sessions)) {
+            $this->sessions->removeElement($sessions);
+            // set the owning side to null (unless already changed)
+            if ($sessions->getUser() === $this) {
+                $sessions->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -28,6 +28,12 @@ class DroneSession
      */
     private $details;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\DroneUser", inversedBy="sessions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function __construct()
     {
         $this->details = new ArrayCollection();
@@ -93,5 +99,17 @@ class DroneSession
     {
         return (new DroneSession())
             ->setCreatedAt($data['createdAt'] ?? new \DateTime());
+    }
+
+    public function getUser(): ?DroneUser
+    {
+        return $this->user;
+    }
+
+    public function setUser(?DroneUser $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }
