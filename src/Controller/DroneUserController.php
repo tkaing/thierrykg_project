@@ -49,4 +49,28 @@ class DroneUserController extends AbstractController
 
         return $this->json($object->toArray());
     }
+
+    /**
+     * @Route("/sign-in", name="api_drone_user_cmd_sign_in", methods={"POST"})
+     */
+    public function signIn(Request $request) {
+
+        $data = $request->getContent();
+        $data = json_decode($data, true);
+
+        $object = DroneUser::fromArray($data);
+
+        $object = $this->finder->findOneBy([
+            'pseudo' => $object->getPseudo(),
+            'password' => $object->getPassword()
+        ]);
+
+        if (!$object instanceof DroneUser) {
+            return $this->json([
+                'message' => "Pseudo ou mot de passe incorrect."
+            ], JsonResponse::HTTP_PARTIAL_CONTENT);
+        }
+
+        return $this->json($object->toArray());
+    }
 }
