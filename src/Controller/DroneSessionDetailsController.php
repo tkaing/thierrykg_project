@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/api/drone/session-details/cmd")
+ * @Route("/api/drone/details/cmd")
  */
 class DroneSessionDetailsController extends AbstractController
 {
@@ -31,7 +31,7 @@ class DroneSessionDetailsController extends AbstractController
     }
 
     /**
-     * @Route("/store", name="api_drone_session_details_cmd_store", methods={"POST"})
+     * @Route("/store", name="api_drone_details_cmd_store", methods={"POST"})
      */
     public function store(Request $request) {
 

@@ -8,7 +8,7 @@ use App\Repository\DroneSessionDetailsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/api/drone/session-details/query", methods={"GET"})
+ * @Route("/api/drone/details/query", methods={"GET"})
  */
 class DroneSessionDetailsQueryController extends AbstractController
 {
@@ -20,7 +20,7 @@ class DroneSessionDetailsQueryController extends AbstractController
     }
 
     /**
-     * @Route("/id/{id}", name="api_drone_session_details_query_id")
+     * @Route("/id/{id}", name="api_drone_details_query_id")
      */
     public function id(int $id) {
 
