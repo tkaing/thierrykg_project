@@ -26,7 +26,7 @@ class DroneSessionDetails
      * @ORM\Column(type="integer")
      * @Assert\PositiveOrZero
      */
-    private $collision;
+    private $distance;
 
     /**
      * @ORM\Column(type="datetime")
@@ -56,14 +56,14 @@ class DroneSessionDetails
         return $this;
     }
 
-    public function getCollision(): ?int
+    public function getDistance(): ?int
     {
-        return $this->collision;
+        return $this->distance;
     }
 
-    public function setCollision(int $collision): self
+    public function setDistance(int $distance): self
     {
-        $this->collision = $collision;
+        $this->distance = $distance;
 
         return $this;
     }
@@ -97,7 +97,7 @@ class DroneSessionDetails
         return [
             'id' => $this->id,
             'speed' => $this->speed,
-            'collision' => $this->collision,
+            'distance' => $this->collision,
             'createdAt' => $this->createdAt,
         ];
     }
@@ -106,7 +106,7 @@ class DroneSessionDetails
     {
         return (new DroneSessionDetails())
             ->setSpeed($data['speed'] ?? -1)
-            ->setCollision($data['collision'] ?? -1)
+            ->setDistance($data['distance'] ?? -1)
             ->setCreatedAt($data['createdAt'] ?? new \DateTime())
             ->setSession($session);
     }
