@@ -19,7 +19,6 @@ class DroneSessionDetails
 
     /**
      * @ORM\Column(type="float")
-     * @Assert\PositiveOrZero
      */
     private $speed;
 
