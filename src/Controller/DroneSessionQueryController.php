@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\DroneSession;
+use App\Entity\DroneUser;
 use App\Repository\DroneSessionRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,6 +39,18 @@ class DroneSessionQueryController extends AbstractController
     public function listAll() {
 
         $objects = $this->finder->findAll();
+
+        return $this->json(array_map(function (DroneSession $object) {
+            return $object->toArray();
+        }, $objects));
+    }
+
+    /**
+     * @Route("/list/user/{id}", name="api_drone_session_query_list_user")
+     */
+    public function listByUser(DroneUser $user) {
+
+        $objects = $this->finder->findBy(['user' => $user]);
 
         return $this->json(array_map(function (DroneSession $object) {
             return $object->toArray();

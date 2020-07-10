@@ -40,7 +40,7 @@ class DroneUserController extends AbstractController
 
         if ($this->service->hasError($object)) {
             return $this->json([
-                'message' => $this->service->getMessage($object)
+                "message" => $this->service->getMessage($object)
             ], JsonResponse::HTTP_CONFLICT);
         }
 
@@ -66,12 +66,10 @@ class DroneUserController extends AbstractController
         ]);
 
         if (!$object instanceof DroneUser) {
-            return $this->json(
-                "Pseudo ou mot de passe incorrect.",
-                JsonResponse::HTTP_CONFLICT
-            );
+            return $this->json([
+                "message" => "Pseudo ou mot de passe incorrect."
+            ], JsonResponse::HTTP_CONFLICT);
         }
-
         return $this->json($object->toArray());
     }
 }

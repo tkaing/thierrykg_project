@@ -38,14 +38,14 @@ class DroneTruncateTableCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $cmd = $this->manager->getClassMetadata(DroneUser::class);
+        /*$cmd = $this->manager->getClassMetadata(DroneUser::class);
         $connection = $this->manager->getConnection();
         $dbPlatform = $connection->getDatabasePlatform();
         $connection->query('SET FOREIGN_KEY_CHECKS=0');
         $q = $dbPlatform->getTruncateTableSql($cmd->getTableName());
         $connection->executeUpdate($q);
         $connection->query('SET FOREIGN_KEY_CHECKS=1');
-        $output->writeln('Drone: User successfully truncated!');
+        $output->writeln('Drone: User successfully truncated!');*/
 
         $cmd = $this->manager->getClassMetadata(DroneSession::class);
         $connection = $this->manager->getConnection();

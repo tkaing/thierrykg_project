@@ -62,6 +62,38 @@ class DroneSessionDetailsController extends AbstractController
         return $this->json($object->toArray());
     }
 
+    /**
+     * @Route("/store-list", name="api_drone_details_cmd_store_list", methods={"POST"})
+     */
+    public function storeList(Request $request) {
+
+        $dataList = $request->getContent();
+        $dataList = json_decode($data, true);
+
+        foreach ($dataList as $data) {
+
+            if ($this->hasSessionError($data)) {
+                return $this->json([
+                    'message' => $this->getSessionMessage($data)->first()
+                ], JsonResponse::HTTP_CONFLICT);
+            }
+
+            $session = $this->fetchSession($data);
+            $object = DroneSessionDetails::fromArray($data, $session);
+
+            if ($this->service->hasError($object)) {
+                return $this->json([
+                    'message' => $this->service->getMessage($object)
+                ], JsonResponse::HTTP_CONFLICT);
+            }
+
+            $this->doctrine->persist($object);
+            $this->doctrine->flush();
+        }
+
+        return $this->json([]);
+    }
+
     private function fetchSession(array $data) {
 
         return $this->finderSession->find($data['sessionId']);
