@@ -97,7 +97,7 @@ class DroneSessionDetails
         return [
             'id' => $this->id,
             'speed' => $this->speed,
-            'distance' => $this->collision,
+            'distance' => $this->distance,
             'createdAt' => $this->createdAt,
         ];
     }
