@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\DroneSession;
 use App\Entity\DroneSessionDetails;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\DroneSessionDetailsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

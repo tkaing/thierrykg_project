@@ -99,6 +99,7 @@ class DroneSessionDetails
             'speed' => $this->speed,
             'distance' => $this->distance,
             'createdAt' => $this->createdAt,
+            'sessionId' => $this->getSession() instanceof DroneSession ? $this->getSession()->getId() : -1
         ];
     }
 
