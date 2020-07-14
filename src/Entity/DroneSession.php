@@ -104,6 +104,7 @@ class DroneSession
         return [
             'id' => $this->id,
             'createdAt' => $this->createdAt,
+            'userId' => $this->getUser() instanceof DroneUser ? $this->getUser()->getId() : -1
         ];
     }
 
